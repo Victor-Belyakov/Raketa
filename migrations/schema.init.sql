@@ -11,4 +11,15 @@ create table if not exists products
 )
     comment 'Товары';
 
+create table if not exists customers
+(
+    id int auto_increment primary key comment 'ID покупателя',
+    first_name varchar(255) not null comment 'Имя',
+    last_name varchar(255) not null comment 'Фамилия',
+    middle_name varchar(255) null comment 'Отчество',
+    email varchar(255) not null unique comment 'Email'
+    )
+    comment 'Покупатели';
+
+create unique index idx_customers_email on customers (email);
 create index is_active_idx on products (is_active);

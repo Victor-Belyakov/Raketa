@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Raketa\BackendTestTask\View;
 
-use Raketa\BackendTestTask\Domain\Cart;
-use Raketa\BackendTestTask\Repository\ProductRepository;
+use Raketa\BackendTestTask\Domain\Entity\Cart;
+use Raketa\BackendTestTask\Domain\Repository\ProductRepository;
 
 readonly class CartView
 {
@@ -30,11 +30,28 @@ readonly class CartView
             'payment_method' => $cart->getPaymentMethod(),
         ];
 
+        $productUuids = array_map(
+            fn($item) => $item->getProductUuid(),
+            $cart->getItems()
+        );
+
+        $products = $this->productRepository->getByUuids($productUuids);
+
+        $productsMap = [];
+        foreach ($products as $product) {
+            $productsMap[$product->getUuid()] = $product;
+        }
+
         $total = 0;
         $data['items'] = [];
+
         foreach ($cart->getItems() as $item) {
             $total += $item->getPrice() * $item->getQuantity();
-            $product = $this->productRepository->getByUuid($item->getProductUuid());
+            $product = $productsMap[$item->getProductUuid()] ?? null;
+
+            if (null === $product) {
+                continue;
+            }
 
             $data['items'][] = [
                 'uuid' => $item->getUuid(),
@@ -50,7 +67,6 @@ readonly class CartView
                 ],
             ];
         }
-
         $data['total'] = $total;
 
         return $data;

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Raketa\BackendTestTask\Infrastructure;
+namespace Raketa\BackendTestTask\Infrastructure\Exception;
 
 class ConnectorException implements \Throwable
 {
@@ -10,7 +10,8 @@ class ConnectorException implements \Throwable
         private string $message,
         private int $code,
         private ?\Throwable $previous,
-    ) { }
+    ) {
+    }
 
     public function getMessage(): string
     {
