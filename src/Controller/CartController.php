@@ -8,13 +8,13 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Raketa\BackendTestTask\Infrastructure\Http\JsonResponse;
-use Raketa\BackendTestTask\Infrastructure\Interface\CartServiceInterface;
+use Raketa\BackendTestTask\Infrastructure\Service\CartService;
 
 readonly class CartController
 {
     public function __construct(
         private LoggerInterface $logger,
-        private CartServiceInterface $cartService
+        private CartService $cartService
     ) {
     }
 

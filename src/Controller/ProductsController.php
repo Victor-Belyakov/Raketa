@@ -8,13 +8,13 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Raketa\BackendTestTask\Infrastructure\Http\JsonResponse;
 use Psr\Log\LoggerInterface;
-use Raketa\BackendTestTask\Infrastructure\Interface\ProductServiceInterface;
+use Raketa\BackendTestTask\Infrastructure\Service\ProductService;
 
 readonly class ProductsController
 {
     public function __construct(
         private LoggerInterface $logger,
-        private ProductServiceInterface $productService
+        private ProductService $productService
     ) {
     }
 

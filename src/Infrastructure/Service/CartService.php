@@ -35,6 +35,7 @@ readonly class CartService implements CartServiceInterface
             $product->getPrice(),
             $request['quantity'],
         ));
+        $this->cartManager->saveCart($cart);
 
         return $this->cartView->toArray($cart);
     }
